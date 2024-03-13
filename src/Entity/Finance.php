@@ -6,6 +6,7 @@ use App\FinanceType;
 use App\Repository\FinanceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[ORM\Entity(repositoryClass: FinanceRepository::class)]
 class Finance
@@ -32,11 +33,6 @@ class Finance
 
     #[ORM\Column(length:255)]
     private FinanceType $type;
-
-    public function __construct(FinanceType $type){
-        $this->type = $type;
-        $this->monthly = false;
-    }
 
     public function getId(): ?int
     {

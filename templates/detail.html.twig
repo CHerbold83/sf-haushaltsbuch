@@ -23,6 +23,7 @@
                     <div class="w-50"><p class="text-left">{{fields.title}}</p></div>
                     <div class="w-25"><p>{{fields.amount |number_format(2, '.', ',')}} €</p></div>
                     <div class="w-25">
+                        <a class="btn btn-primary sm" href="{{ path('edit', {'id':fields.id}) }}">Bearbeiten</a>
                         <a class="btn btn-danger sm" href={{path('detail', {'date':date,'id':fields.id})}}>
                             Löschen
                         </a>

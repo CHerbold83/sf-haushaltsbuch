@@ -13,6 +13,8 @@
         <h4 class="text-center">Hallo {{ app.user.email }}! ✅</h4>
     {% endif %}
 
+    <a class="btn btn-primary" href={{path('edit')}}>Hinzufügen</a>
+
     <div class="row">
     {% for month in months %}
         <div class="col">
@@ -25,30 +27,18 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="w-50">
-                        Einkommen
-                        </div>
-                        <div class="w-50">
-                        {{totalIncome[month]|number_format(2, '.', ',')}} €
-                        </div>
+                        <div class="w-50">Einkommen</div>
+                        <div class="w-50">{{totalIncome[month]|number_format(2, '.', ',')}} €</div>
                     </div>
                         <hr>
                     <div class="row">
-                        <div class="w-50">
-                        Ausgaben
-                        </div>
-                        <div class="w-50">
-                        {{totalExpenses[month]|number_format(2, '.', ',')}} €
-                        </div>
+                        <div class="w-50">Ausgaben</div>
+                        <div class="w-50">{{totalExpenses[month]|number_format(2, '.', ',')}} €</div>
                     </div>
                         <hr>
                         <div class="row">
-                        <div class="w-50">
-                        Gesamt
-                        </div>
-                        <div class="w-50">
-                        {{total[month]|number_format(2, '.', ',')}} €
-                        </div>
+                        <div class="w-50">Gesamt</div>
+                        <div class="w-50">{{total[month]|number_format(2, '.', ',')}} €</div>
                     </div>
                     </div>
                 </div>
