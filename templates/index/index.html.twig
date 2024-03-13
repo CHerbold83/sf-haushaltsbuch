@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% if app.user %}
+        <h4 class="text-center">Hallo {{ app.user.email }}! ✅</h4>
+    {% endif %}
+
+    <div class="row">
+    {% for date in months %}
+        <div class="col">
+            <div class="card w-50">
+                <div class="card-header">
+                    <div class="card-title text-center">
+                        {{ date }}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="w-50">
+                        Einkommen
+                        </div>
+                        <div class="w-50">
+                        {{totalIncome[date]}}
+                        </div>
+                    </div>
+                        <hr>
+                    <div class="row">
+                        <div class="w-50">
+                        Ausgaben
+                        </div>
+                        <div class="w-50">
+                        {{totalExpenses[date]}}
+                        </div>
+                    </div>
+                        <hr>
+                        <div class="row">
+                        <div class="w-50">
+                        Gesamt
+                        </div>
+                        <div class="w-50">
+                        {{total[date]}}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
