@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% for message in app.flashes("error") %}
+    <div class="alert alert-danger text-center">
+        {{ message }}
+    </div>
+{% endfor %}
+<div class="detail_header">
+    <h4 class="text-center">Details</h4>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            {{date}}
+        </div>
+        <div class="card-body">
+            {% for key, finance in finances %}
+            <div class="row">
+                <div><p>{{types[key]}}</p></div>
+                {% for fields in finance %}
+                    <div class="w-50"><p class="text-left">{{fields.title}}</p></div>
+                    <div class="w-25"><p>{{fields.amount |number_format(2, '.', ',')}} €</p></div>
+                    <div class="w-25">
+                        <a class="btn btn-danger sm" href={{path('detail', {'date':date,'id':fields.id})}}>
+                            Löschen
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <hr>
+            {% endfor %}
+            <div class="row">
+            <div class="w-50"><p>Gesamt</p></div>
+            <div class="w-50"><p>{{ total |number_format(2, '.', ',')}} €</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

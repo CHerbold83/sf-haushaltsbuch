@@ -14,12 +14,13 @@
     {% endif %}
 
     <div class="row">
-    {% for date in months %}
+    {% for month in months %}
         <div class="col">
+        <a href="{{ path('detail', {'date':month}) }}" style="text-decoration:none;">
             <div class="card w-50">
                 <div class="card-header">
                     <div class="card-title text-center">
-                        {{ date }}
+                        {{ month }}
                     </div>
                 </div>
                 <div class="card-body">
@@ -28,7 +29,7 @@
                         Einkommen
                         </div>
                         <div class="w-50">
-                        {{totalIncome[date]}}
+                        {{totalIncome[month]|number_format(2, '.', ',')}} €
                         </div>
                     </div>
                         <hr>
@@ -37,7 +38,7 @@
                         Ausgaben
                         </div>
                         <div class="w-50">
-                        {{totalExpenses[date]}}
+                        {{totalExpenses[month]|number_format(2, '.', ',')}} €
                         </div>
                     </div>
                         <hr>
@@ -46,12 +47,13 @@
                         Gesamt
                         </div>
                         <div class="w-50">
-                        {{total[date]}}
+                        {{total[month]|number_format(2, '.', ',')}} €
                         </div>
                     </div>
                     </div>
                 </div>
             </div>
+            </a>
         </div>
     {% endfor %}
     </div>

@@ -2,20 +2,28 @@
 
 namespace App\Controller;
 
+use App\Entity\Finance;
+use App\FinanceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use \DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 
 class IndexController extends AbstractController
 {
+
+    public function __construct(private readonly EntityManagerInterface $em){
+
+    }
+
     #[Route('/', name: 'index')]
     public function index(): Response
     {
         $months = [];
         $totalIncome = [];
         $totalExpenses = [];
-        $date = new \DateTime();
+        $date = new DateTime();
         $date -> format('M Y');
 
         for($i = 0; $i < 12; $i++){
@@ -37,17 +45,35 @@ class IndexController extends AbstractController
         ]);
     }
 
-    public function getTotalIncomeForMonth($date):float{
-
+    public function getTotalByType(FinanceType $type, $date):float{
         $total = 0.0;
+        $date->modify("first day of this month");
 
+        $repository = $this->em->getRepository(Finance::class);
+        $entries = $repository->findBy(['user_id'=> $this->getUser()->getId()]);
+        foreach($entries as $entry){
+            $entryDate = DateTime::createFromInterface($entry->getDate());
+            if($entry->isMonthly()){
+                if($entry->getType() == $type && $entryDate->getTimestamp() <= $date->getTimestamp()){
+                    $total  += $entry->getAmount();
+                }
+            } else {
+                if($entry->getType() == $type && $entryDate->getTimestamp() == $date->getTimestamp()){
+                    $total  += $entry->getAmount();
+                }
+            }
+        }
         return $total;
+    }
+
+    public function getTotalIncomeForMonth($date):float{
+        return $this->getTotalByType(FinanceType::Income, $date);
     }
 
     public function getTotalExpensesForMonth($date): float{
 
-        $total = 0.0;
-
-        return $total;
+        return $this->getTotalByType(FinanceType::Expenses, $date);
     }
+
+    
 }
