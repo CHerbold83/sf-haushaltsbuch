@@ -15,15 +15,16 @@
     </head>
     <body>
     <div class="row">
-        <div class="w-25">
+        <div class="w-25 ml-1">
             <h4><a class="header-link" style="margin-left:25px;" href="{{ path('index') }}">Haushaltsbuch</a></h4>
         </div
-
-        <div class="mb-3 w-75">
         {% if app.user %}
-                Sie sind eingeloggt als {{ app.user.email }}, <a href="{{ path('logout') }}">Logout</a>
+        <div class="mb-3 w-50 row">
+               <p class="w-50 text-center">Sie sind eingeloggt als {{ app.user.email }}</p>
+               <a class="text-right w-25" href="{{ path('logout') }}">Logout</a>
+        </div>
         {% endif %}
-    </div>
         {% block body %}{% endblock %}
+    </div>
     </body>
 </html>

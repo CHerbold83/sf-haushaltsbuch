@@ -10,3 +10,12 @@ body{
 .no-text-decoration{
     text-decoration: none;
 }
+
+.overview-card{
+    margin:auto;
+    width: 25%; 
+}
+
+.brown{
+    background-color: brown;
+}

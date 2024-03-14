@@ -3,23 +3,21 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    {% if app.user %}
-        <h4 class="text-center">Hallo {{ app.user.email }}! ✅</h4>
-    {% endif %}
-
-    <a class="btn btn-primary" href={{path('edit')}}>Hinzufügen</a>
-
+{% if app.user %}
+<div class="brown">
+    <h4 class="text-center p-3">Hallo {{ app.user.email }}! ✅</h4>
+</div>
+{% endif %}
+<div class="text-center mb-3 mt-5">
+    <a class="btn btn-secondary m-auto w-25" href={{path('edit')}}>Hinzufügen</a>
+</div>
+<div>
     <div class="row">
     {% for month in months %}
         <div class="col">
         <a href="{{ path('detail', {'date':month}) }}" style="text-decoration:none;">
-            <div class="card w-50">
+            <div class="card w-25 m-auto mt-3">
                 <div class="card-header">
                     <div class="card-title text-center">
                         {{ month }}

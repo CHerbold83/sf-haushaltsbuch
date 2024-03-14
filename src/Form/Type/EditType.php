@@ -18,12 +18,12 @@ class EditType extends AbstractType{
 
     public function buildForm(FormBuilderInterface $builder, array $options){
         $builder
-            ->add('title', TextType::class)
-            ->add('amount', NumberType::class)
-            ->add('monthly', CheckboxType::class)
-            ->add('type', EnumType::class, ['class' => FinanceType::class])
-            ->add('date', DateType::class)
-            ->add('save', SubmitType::class)
+            ->add('title', TextType::class, ['label'=>'Titel'])
+            ->add('amount', NumberType::class, ['label'=>'Betrag'])
+            ->add('monthly', CheckboxType::class, ['label'=>'Monatlich'])
+            ->add('type', EnumType::class, ['class' => FinanceType::class, 'label'=>'Typ'])
+            ->add('date', DateType::class, ['label'=>'Fälligkeitsdatum'])
+            ->add('save', SubmitType::class, ['label'=>'Speichern'])
             ;
     }
 
