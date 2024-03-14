@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+<h4 class="text-center">Profil</h4>
+
+<div class="container w-50 m-auto">
+    {{ form(profileForm)}}
+</div>
+
+<div class="text-center">
+    <a href="{{path('delete_user', {'id':app.user.id})}}" class="btn btn-danger">Nutzer löschen</a>
+</div>
+
+{% endblock %}

@@ -20,7 +20,7 @@
         </div
         {% if app.user %}
         <div class="mb-3 w-50 row">
-               <p class="w-50 text-center">Sie sind eingeloggt als {{ app.user.email }}</p>
+               <p class="w-50 text-center">Sie sind eingeloggt als <a href="{{path('profile')}}" >{{ app.user.email }}</a></p>
                <a class="text-right w-25" href="{{ path('logout') }}">Logout</a>
         </div>
         {% endif %}
