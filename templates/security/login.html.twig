@@ -40,9 +40,7 @@
                 name="_csrf_token"
                 value="{{ csrf_token('authenticate') }}"
             >
-        </form>
     </div>
-    <div>
     <button 
         class="btn btn-primary mt-5" 
         type="submit">
@@ -51,6 +49,6 @@
         <div class="mt-5">
             <a href="{{path('registration')}}" class="mt-5">Registrieren</a>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}
