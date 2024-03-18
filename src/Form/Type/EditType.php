@@ -20,8 +20,14 @@ class EditType extends AbstractType{
         $builder
             ->add('title', TextType::class, ['label'=>'Titel'])
             ->add('amount', NumberType::class, ['label'=>'Betrag'])
-            ->add('monthly', CheckboxType::class, ['label'=>'Monatlich'])
-            ->add('type', EnumType::class, ['class' => FinanceType::class, 'label'=>'Typ'])
+            ->add('monthly', CheckboxType::class, ['label'=>'Monatlich', 'required'=> false])
+            ->add('type', EnumType::class, ['class' => FinanceType::class, 'label'=>'Typ', 
+            'choice_label'=> function(FinanceType $choice):string{
+                if($choice === FinanceType::Income){
+                    return "Einkommen";
+                }
+                return "Ausgaben";
+            },])
             ->add('date', DateType::class, ['label'=>'Fälligkeitsdatum'])
             ->add('save', SubmitType::class, ['label'=>'Speichern'])
             ;

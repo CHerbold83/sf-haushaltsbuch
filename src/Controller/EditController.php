@@ -54,8 +54,8 @@ class EditController extends AbstractController{
     public function getFinanceById($id): Finance{
 
         $repository = $this->em->getRepository(Finance::class);
-        $finance = $repository->findBy(['id' => $id]);
-        return $finance[0];
+        $financeForID = $repository->findBy(['id' => $id]);
+        return $financeForID[0];
     }
 
 

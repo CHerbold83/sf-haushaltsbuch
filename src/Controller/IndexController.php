@@ -23,7 +23,7 @@ class IndexController extends AbstractController
         $months = [];
         $totalIncome = [];
         $totalExpenses = [];
-        $date = new DateTime();
+        $date = new DateTime("midnight");
         $date -> format('M Y');
 
         for($i = 0; $i < 12; $i++){
@@ -48,6 +48,7 @@ class IndexController extends AbstractController
     public function getTotalByType(FinanceType $type, $date):float{
         $total = 0.0;
         $date->modify("first day of this month");
+        $date->format("Y-m-01 00:00:00");
 
         $repository = $this->em->getRepository(Finance::class);
         $entries = $repository->findBy(['user_id'=> $this->getUser()->getId()]);

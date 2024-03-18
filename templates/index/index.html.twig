@@ -15,30 +15,23 @@
 <div>
     <div class="row">
     {% for month in months %}
-        <div class="col">
+        <div class="col w-100">
         <a href="{{ path('detail', {'date':month}) }}" style="text-decoration:none;">
-            <div class="card w-25 m-auto mt-3">
+            <div class="card m-auto mt-3">
                 <div class="card-header">
                     <div class="card-title text-center">
                         {{ month }}
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="w-50">Einkommen</div>
-                        <div class="w-50">{{totalIncome[month]|number_format(2, '.', ',')}} €</div>
-                    </div>
+                <div class="card-body row" style="width: 20rem">
+                        <p class="w-50">Einkommen</p>
+                        <p class="w-50">{{totalIncome[month]|number_format(2, '.', ',')}} €</p>
                         <hr>
-                    <div class="row">
-                        <div class="w-50">Ausgaben</div>
-                        <div class="w-50">{{totalExpenses[month]|number_format(2, '.', ',')}} €</div>
-                    </div>
+                        <p class="w-50">Ausgaben</p>
+                        <p class="w-50">{{totalExpenses[month]|number_format(2, '.', ',')}} €</p>
                         <hr>
-                        <div class="row">
-                        <div class="w-50">Gesamt</div>
-                        <div class="w-50">{{total[month]|number_format(2, '.', ',')}} €</div>
-                    </div>
-                    </div>
+                        <p class="w-50">Gesamt</p>
+                        <p class="w-50">{{total[month]|number_format(2, '.', ',')}} €</p>
                 </div>
             </div>
             </a>

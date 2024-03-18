@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use \DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DetailController extends AbstractController{
 
@@ -18,10 +20,6 @@ class DetailController extends AbstractController{
     #[Route(path:"/detail/{date}/{id}", name:"detail", defaults:['date' => null, 'id'=> null], 
     methods: ['GET', 'HEAD'])]
     public function index($date, $id){
-
-        if($id !== null){
-            $this->deleteFinanceFromDatabase($id);
-        }
 
         $monthlyIncome = $this->getFinance(true, FinanceType::Income, $date);
         $oneTimeIncome = $this->getFinance(false, FinanceType::Income, $date);
@@ -47,6 +45,19 @@ class DetailController extends AbstractController{
             "date"=> $date,
             "total"=> $total,
         ]);
+    }
+
+    #[Route(path:'/profile/delete_finance/{id}', methods: ['GET', 'DELETE'], name: 'delete_finance')]
+    public function delete($id, Request $request): Response{
+        $finance = $this->em->getRepository(Finance::class)->find($id);
+        if($finance->getUserId() != $this->getUser()->getId()){
+            $this->addFlash('error','Sie haben keine Berechtigung diese Finanzen zu löschen!');
+        } else {
+            $this->em->remove($finance);
+            $this->em->flush();
+        }
+
+        return $this->redirectToRoute('detail');
     }
 
     public function getFinance(bool $monthly, FinanceType $type, $date):array{
@@ -89,15 +100,5 @@ class DetailController extends AbstractController{
             $total -= $expense->getAmount();
         }
         return $total;
-    }
-
-    public function deleteFinanceFromDatabase($id) {
-        $finance = $this->em->getRepository(Finance::class)->find($id);
-        if($finance->getUserId() != $this->getUser()->getId()){
-            $this->addFlash('error','Sie haben keine Berechtigung diese Finanzen zu löschen!');
-        } else {
-            $this->em->remove($finance);
-            $this->em->flush();
-        }
     }
 }

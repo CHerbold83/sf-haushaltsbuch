@@ -9,35 +9,40 @@
         {{ message }}
     </div>
 {% endfor %}
-<div class="detail_header">
-    <h4 class="text-center">Details</h4>
-</div>
+<h4 class="text-center">Details</h4>
 <div class="container">
     <div class="card">
-        <div class="card-header text-center">
-            {{date}}
-        </div>
-        <div class="card-body">
+        <p class="card-header text-center"> {{date}} </p>
+    </div>
+
+    <div class="card-body">
+        <div>            
             {% for key, finance in finances %}
-            <div class="row">
-                <div><p>{{types[key]}}</p></div>
+            <div>
+                <p>{{types[key]}}</p>
+                
                 {% for fields in finance %}
-                    <div class="w-50"><p class="text-left">{{fields.title}}</p></div>
-                    <div class="w-25"><p>{{fields.amount |number_format(2, '.', ',')}} €</p></div>
+                <div class="row">
+                    <p class="w-50 text-left">{{fields.title}}</p>
+                    <p class="w-25">{{fields.amount |number_format(2, '.', ',')}} €</p>
+
                     <div class="w-25">
-                        <a class="btn btn-primary sm" href="{{ path('edit', {'id':fields.id}) }}">Bearbeiten</a>
-                        <a class="btn btn-danger sm" href={{path('detail', {'date':date,'id':fields.id})}}>
+                        <a class="btn btn-secondary sm" href="{{ path('edit', {'id':fields.id}) }}">Bearbeiten</a>
+                        <a class="btn btn-danger sm" href={{path('delete_finance', {'id':fields.id})}}>
                             Löschen
                         </a>
                     </div>
+                </div>
                 {% endfor %}
+
             </div>
             <hr>
-            {% endfor %}
+            {% endfor %} 
+
             <div class="row">
-            <div class="w-50"><p>Gesamt</p></div>
-            <div class="w-50"><p>{{ total |number_format(2, '.', ',')}} €</p></div>
-            </div>
+            <p class="w-50">Gesamt</p>
+            <p class="w-50">{{ total |number_format(2, '.', ',')}} €</p>
+            </div> 
         </div>
     </div>
 </div>
