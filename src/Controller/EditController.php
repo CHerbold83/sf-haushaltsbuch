@@ -17,6 +17,9 @@ class EditController extends AbstractController{
 
     }
 
+    /**
+     * method to edit the finance
+     */
     #[Route(path:"/edit/{id}", name:"edit", defaults:['id'=> null], 
     methods: ['GET', 'HEAD', 'POST'])]
     public function indexAction(Request $request, $id): Response{
@@ -51,6 +54,9 @@ class EditController extends AbstractController{
         ]);
     }
 
+    /**
+     * gets finance by id
+     */
     public function getFinanceById($id): Finance{
 
         $repository = $this->em->getRepository(Finance::class);

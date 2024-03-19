@@ -17,6 +17,10 @@ class ProfileController extends AbstractController{
 
     }
 
+    /**
+     * shows the profile of the user
+     * email is editable
+     */
     #[Route(path:"/profile", name:"profile", methods: ['POST', 'GET'])]
     public function indexAction(Request $request): Response{
 
@@ -38,7 +42,11 @@ class ProfileController extends AbstractController{
         ]);
     }
 
-    #[Route(path:'/profile/delete/{id}', methods: ['GET', 'DELETE'], name: 'delete_user')]
+    /**
+     * deletes the user if wanted
+     * also deletes all finances for the user
+     */
+    #[Route(path:'/profile/delete_user/{id}', methods: ['GET', 'DELETE'], name: 'delete_user')]
     public function delete($id, Request $request): Response{
         $user = $this->getUser();
         $session = $request->getSession();

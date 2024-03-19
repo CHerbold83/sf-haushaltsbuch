@@ -17,15 +17,16 @@ class DetailController extends AbstractController{
 
     }
 
-    #[Route(path:"/detail/{date}/{id}", name:"detail", defaults:['date' => null, 'id'=> null], 
+    #[Route(path:"/detail/{date}", name:"detail", defaults:['date' => null], 
     methods: ['GET', 'HEAD'])]
-    public function index($date, $id){
+    public function index($date){
 
         $monthlyIncome = $this->getFinance(true, FinanceType::Income, $date);
         $oneTimeIncome = $this->getFinance(false, FinanceType::Income, $date);
         $monthlyExpenses = $this->getFinance(true, FinanceType::Expenses, $date);
         $oneOffExpenses = $this->getFinance(false, FinanceType::Expenses, $date);
         $total = $this->getTotal($monthlyIncome, $oneTimeIncome, $monthlyExpenses, $oneOffExpenses);
+        //both arrays are for view -> both must have the same key!
         $finances = [
             "monthlyIncome"=>$monthlyIncome,
             "oneTimeIncome"=>$oneTimeIncome,
@@ -47,9 +48,13 @@ class DetailController extends AbstractController{
         ]);
     }
 
+    /**
+     * deletes the finance
+     */
     #[Route(path:'/profile/delete_finance/{id}', methods: ['GET', 'DELETE'], name: 'delete_finance')]
     public function delete($id, Request $request): Response{
         $finance = $this->em->getRepository(Finance::class)->find($id);
+        //checks if user is allowed to delete the finance
         if($finance->getUserId() != $this->getUser()->getId()){
             $this->addFlash('error','Sie haben keine Berechtigung diese Finanzen zu löschen!');
         } else {
@@ -60,6 +65,9 @@ class DetailController extends AbstractController{
         return $this->redirectToRoute('detail');
     }
 
+    /**
+     * gets the finance by date, monthly and type
+     */
     public function getFinance(bool $monthly, FinanceType $type, $date):array{
         $newDate = new DateTime($date);
         $newDate->modify("first day of this month");
@@ -71,6 +79,8 @@ class DetailController extends AbstractController{
                                         'type'=>$type]);
 
         foreach($entries as $entry){
+            //checks if finance starts in the path for monthly
+            //else: checks if it is the same month
             $entityDate = DateTime::createFromInterface($entry->getDate());
             if($entry->isMonthly()){
                 if($entityDate->getTimestamp() <= $newDate->getTimestamp()){
@@ -85,6 +95,9 @@ class DetailController extends AbstractController{
         return $months;
     }
 
+    /**
+     * gets total of all income and expenses
+     */
     public function getTotal($mIncome, $oIncome, $mExpenses, $oExpenses):float{
         $total = 0.0;
         foreach($mIncome as $income){

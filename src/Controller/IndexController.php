@@ -17,6 +17,9 @@ class IndexController extends AbstractController
 
     }
 
+    /**
+     * shows the overview of 12 months 
+     */
     #[Route('/', name: 'index')]
     public function index(): Response
     {
@@ -26,6 +29,7 @@ class IndexController extends AbstractController
         $date = new DateTime("midnight");
         $date -> format('M Y');
 
+        //get the total for income, expenses and both
         for($i = 0; $i < 12; $i++){
             $months[] = $date -> format('M Y');
             $totalIncome[$date->format('M Y')] = $this->getTotalIncomeForMonth($date);
@@ -45,6 +49,10 @@ class IndexController extends AbstractController
         ]);
     }
 
+    /**
+     * gets total for income or expenses
+     * for each month
+     */
     public function getTotalByType(FinanceType $type, $date):float{
         $total = 0.0;
         $date->modify("first day of this month");
