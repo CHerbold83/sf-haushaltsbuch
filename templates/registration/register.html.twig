@@ -3,30 +3,26 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="w-4/5 m-auto text-center">
-        <div class="py-12 border-b border-gray-200">
-            <h5 class="text-6xl pt-12 pb-8 text-center">
+    <div class="card w-50 m-auto">
+        <div class="card-header">
+            <h4 class="card-title text-center">
                 Registrieren
-            </h5>
-            <div class="d-flex align-items-center justify-content-center">
-            <div class="card w-50 ">
-                <div class="card-body d-flex align-items-center justify-content-center">
-                    {{ form_start(registrationForm) }}
-                        {{ form_row(registrationForm.email) }}
-                        {{ form_row(registrationForm.plainPassword) }}
-                    
-                    {{ form_row(registrationForm.agreeTerms) }}
-                </div>
-            </div>
-            </div>
+            </h4>
+        </div>
+        <div class="card-body">
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword) }}
+            
+            {{ form_row(registrationForm.agreeTerms) }}
+
             <div class="text-center">
             <button 
                 type="submit" 
                 class="btn btn-primary">
                 Registrieren
             </button>
-            </div>
-            
+            </div>            
             {{ form_end(registrationForm) }}
 
         </div>

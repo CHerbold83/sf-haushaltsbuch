@@ -14,17 +14,34 @@
         {% endblock %}
     </head>
     <body>
-    <div class="row">
-        <div class="w-25 ml-1">
-            <h4><a class="header-link" style="margin-left:25px;" href="{{ path('index') }}">Haushaltsbuch</a></h4>
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div class="container">
+            <h4><a class="navbar-brand" style="margin-left:25px;" href="{{ path('index') }}">Haushaltsbuch</a></h4>
         </div
-        {% if app.user %}
-        <div class="mb-3 w-50 row">
-               <p class="w-50 text-center">Sie sind eingeloggt als <a href="{{path('profile')}}" >{{ app.user.email }}</a></p>
-               <a class="text-right w-25" href="{{ path('logout') }}">Logout</a>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+            
+            </ul >
+            <ul class="navbar-nav mr-3">
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ app.user.email }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{path('profile')}}">Profil</a>
+                            <a class="dropdown-item" href="{{ path('logout') }}">Logout</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('login') }}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
-        {% endif %}
-    </div>
+    </nav>
     {% block body %}{% endblock %}
     </body>
 </html>
