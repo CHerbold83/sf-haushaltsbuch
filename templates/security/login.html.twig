@@ -1,32 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Log in!{% endblock %}
 
 {% block body %}
+<div class:"text-center w-50">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
+        <h4 class="h3 mb-3 font-weight-normal text-center">Login</h4>
+    
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+        <label for="inputPassword">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <h4 class="text-center">Login</h4>
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
 
-    <div class="text-center">
-        <div class="mt-5">    
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Email"
-                autocomplete="email" required autofocus>
-
-            <input type="password" name="password" id="inputPassword" autocomplete="current-password" 
-                placeholder="Password" required>
-
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        </div>
-        <button class="btn btn-primary mt-5" type="submit">
-            Login
+        <button class="btn btn-lg btn-primary mt-5" type="submit">
+            Sign in
         </button>
         <div class="mt-2">
             <a href="{{path('registration')}}" class="mt-5">Registrieren</a>
         </div>
-    </div>
 </form>
-
+ </div>
 {% endblock %}

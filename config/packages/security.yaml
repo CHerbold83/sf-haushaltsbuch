@@ -15,16 +15,18 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: 
+                - ^/_profiler/
+                - ^/_wdt/
+                - ^/css/
+                - ^/images/
+                - ^/js/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
             custom_authenticator:
                 - App\Security\CustomAuthenticator
-            # guard:
-            #     authenticators:
-            #         -App\Security\LoginFormAuthenticator
             logout:
                 path: logout
                 # where to redirect after logout
