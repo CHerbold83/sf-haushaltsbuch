@@ -8,22 +8,27 @@
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-        <h4 class="h3 mb-3 font-weight-normal text-center">Login</h4>
-    
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-        <label for="inputPassword">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <div class="card w-50 m-auto">
+            <div class="card-header">
+                <h4 class="card-title text-center" class="h3 mb-3 font-weight-normal text-center">Login</h4>
+            </div>
+            <div class="card-body">
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-        <input type="hidden" name="_csrf_token"
-            value="{{ csrf_token('authenticate') }}"
-        >
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
 
-        <button class="btn btn-lg btn-primary mt-5" type="submit">
-            Sign in
-        </button>
-        <div class="mt-2">
-            <a href="{{path('registration')}}" class="mt-5">Registrieren</a>
+                <button class="btn btn-lg btn-primary mt-5" type="submit">
+                    Sign in
+                </button>
+                <div class="mt-2">
+                    <a href="{{path('registration')}}" class="mt-5">Registrieren</a>
+                </div>
+            </div>
         </div>
 </form>
  </div>
