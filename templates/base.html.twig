@@ -16,7 +16,7 @@
         {% endblock %}
     </head>
     <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-4">
         <div class="container">
             <h4><a class="navbar-brand" style="margin-left:25px;" href="{{ path('index') }}">Haushaltsbuch</a></h4>
         </div
@@ -33,6 +33,7 @@
                         </a>
                         <div id="navbarDropdown" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{path('profile')}}">Profil</a>
+                            <hr>
                             <a class="dropdown-item" href="{{ path('logout') }}">Logout</a>
                         </div>
                     </li>
